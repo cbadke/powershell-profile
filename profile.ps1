@@ -18,16 +18,18 @@ function prompt {
 
     $count = $folders.length
 
-    if ($count -lt 2) {
+    if ($HOME -eq $currPath) {
+        $curFolder = "~"
+    }
+    else {
         $curFolder = $folders[$folders.length - 1]
-    } else {
-        $curFolder = $folders[$folders.length - 2] + [System.IO.Path]::DirectorySeparatorChar + $folders[$folders.length - 1]
     }
 
-    Write-Host "$curFolder" -nonewline
 
     Write-VcsStatus
 
+    Write-Host "[$curFolder]" -nonewline -ForegroundColor Magenta
+
     $global:LASTEXITCODE = $realLASTEXITCODE
-    return "> "
+    return " "
 }
