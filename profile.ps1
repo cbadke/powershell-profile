@@ -8,6 +8,9 @@ if (test-path env:posh_git) {
 new-alias fsi 'C:\Program Files (x86)\Microsoft SDKs\F#\3.0\Framework\v4.0\Fsi.exe'
 new-alias gitx 'gitex'
 
+remove-item alias:\cd
+new-alias cdd 'set-location'
+
 function prompt {
     $realLASTEXITCODE = $LASTEXITCODE
 
@@ -33,4 +36,21 @@ function prompt {
 
     $global:LASTEXITCODE = $realLASTEXITCODE
     return " "
+}
+
+function cd {
+    param (
+        [string]$Path,
+        [switch]$PassThru,
+        [switch]$UseTransaction
+    )
+    $x = Set-Location @PsBoundParameters
+
+    if ($?) {
+        Get-ChildItem
+    }
+    if ($PassThru) {
+        return $x
+    }
+    return
 }
