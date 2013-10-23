@@ -11,6 +11,16 @@ new-alias gitx 'gitex'
 remove-item alias:\cd
 new-alias cdd 'set-location'
 
+if ($host.Name -eq 'ConsoleHost') {
+    if (Get-Module -ListAvailable PSReadline) {
+        Import-Module PSReadline
+        Set-PSReadlineKeyHandler -Key Tab -Function Complete
+        Set-PSReadlineKeyHandler -Key UpArrow -Function HistorySearchBackward
+        Set-PSReadlineKeyHandler -Key DownArrow -Function HistorySearchForward
+        Set-PSReadlineOption -HistorySearchCursorMovesToEnd
+    }
+}
+
 function prompt {
     $realLASTEXITCODE = $LASTEXITCODE
 
