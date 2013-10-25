@@ -11,6 +11,8 @@ new-alias gitx 'gitex'
 remove-item alias:\cd
 new-alias cdd 'set-location'
 
+new-alias which 'where.exe'
+
 if ($host.Name -eq 'ConsoleHost') {
     if (Get-Module -ListAvailable PSReadline) {
         Import-Module PSReadline
