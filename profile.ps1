@@ -1,17 +1,24 @@
+. (Resolve-Path "$env:LOCALAPPDATA\GitHub\shell.ps1")
+
+. $env:github_posh_git\profile.example.ps1
+
 $dev = 'D:\git'
 
 # If Posh-Git environment is defined, load it.
 if (test-path env:posh_git) {
-    . $env:posh_git
+  . $env:posh_git
 }
 
-new-alias fsi 'C:\Program Files (x86)\Microsoft SDKs\F#\3.0\Framework\v4.0\Fsi.exe'
-new-alias gitx 'gitex'
+new-alias fsi 'C:\Program Files (x86)\Microsoft SDKs\F#\3.1\Framework\v4.0\Fsi.exe'
+new-alias gitx 'gitextensions.exe'
+new-alias open 'explorer.exe'
+new-alias vi 'vim'
 
 remove-item alias:\cd
 new-alias cdd 'set-location'
 
 new-alias which 'where.exe'
+new-alias npe  nugetpackageexplorer
 
 if ($host.Name -eq 'ConsoleHost') {
     if (Get-Module -ListAvailable PSReadline) {
@@ -50,6 +57,7 @@ function prompt {
     return " "
 }
 
+
 function cd {
     param (
         [string]$Path,
@@ -65,4 +73,11 @@ function cd {
         return $x
     }
     return
+}
+
+function o {
+  param (
+    [string]$Path = '.'
+  )
+  explorer $Path
 }
